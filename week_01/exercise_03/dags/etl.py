@@ -31,7 +31,7 @@ with DAG(
 
     upload_to_s3_task = BashOperator(
         task_id="upload_to_s3",
-        bash_command=f"aws s3 cp {transformation_output_path} {s3_destination_path}"
+        bash_command=f"aws s3 cp {transformation_output_path} {s3_destination_path} --recursive"
     )
 
     extract_and_transform_task >> upload_to_s3_task

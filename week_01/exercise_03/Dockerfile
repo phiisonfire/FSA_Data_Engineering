@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     less \
     && rm -rf /var/lib/apt/lists/*
 
+
 # download the AWS CLI installer
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
@@ -49,3 +50,10 @@ RUN set -a && \
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir "apache-airflow==${AIRFLOW_VERSION}" -r requirements.txt
+
+USER root
+
+RUN apt-get update && apt-get install -y openjdk-17-jdk && rm -rf /var/lib/apt/lists/*
+RUN export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+USER airflow

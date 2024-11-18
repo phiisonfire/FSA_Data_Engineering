@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql import Row
 from pyspark.sql.functions import current_timestamp
 
-from extract import fetch_all_book_data_with_ids
+from .extract import fetch_all_book_data_with_ids
 
 def transform_book_data(transformation_output_path):
 
@@ -28,8 +28,8 @@ def transform_book_data(transformation_output_path):
     books_df.coalesce(1).write.mode("overwrite").csv(transformation_output_path)
 
     spark.stop()
-    return books_df
+    # return books_df
 
 if __name__ == "__main__":
-    books_df = transform_book_data("data/test.csv")
-    print(books_df)
+    transform_book_data("data/test.csv")
+    # print(books_df)
