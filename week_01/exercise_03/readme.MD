@@ -65,7 +65,10 @@ Define the default value `apache/airflow:2.10.3` if environment variable `AIRFLO
 - `expose`: declare which ports that container should expose to other containers within the same Docker network
 - `healthcheck`: 
   - define a command that Docker periodically run to check if the container is healthy
-  - Docker can restart the container (based on restart policy) 
+  - Docker can restart the container (based on restart policy)
+- `ports`: map container ports to the host machine
+  - `- "host_port: container_port"`
+- `command`: specify the command to run when the container starts, override the default `CMD` instruction in the Docker image
 
 
 
