@@ -10,6 +10,12 @@ AIRFLOW_GID=0
 AIRFLOW_IMAGE_NAME=phinguyen/airflow:latest
 ```
 
+## Build image from Dockerfile
+Ensure the current working directory is where Dockerfile located
+```bash
+docker build -t phinguyen/airflow:latest .
+```
+
 ## Key takeaway from Dockerfile
 ### Commands:
 - `FROM`: define base image
