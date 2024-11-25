@@ -1,0 +1,17 @@
+Azure
+2 loai services
+- serverless
+- tra truoc (tinh phi truoc)
+
+- khi muon tao 1 instance moi thi nhan truoc voi a Duong & su dung chung
+
+- code truoc tren localhost roi push len cloud
+
+- airflow username, password
+https://airflow.apache.org/docs/apache-airflow/2.0.2/security/webserver.html
+
+trick to be better developer:
+- remember bugs
+
+su dung git trong container?
+giam? size cua image

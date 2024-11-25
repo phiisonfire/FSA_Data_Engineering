@@ -76,6 +76,10 @@ Define the default value `apache/airflow:2.10.3` if environment variable `AIRFLO
   - `- "host_port: container_port"`
 - `command`: specify the command to run when the container starts, override the default `CMD` instruction in the Docker image
 
+entrypoint vs CMD
+- CMD giup ta truyen arguments
+- entrypoint thi ta ko the overwrite
+
 
 
 
