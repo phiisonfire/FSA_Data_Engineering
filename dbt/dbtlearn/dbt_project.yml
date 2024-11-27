@@ -17,6 +17,7 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
 
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
@@ -33,6 +34,8 @@ models:
   dbtlearn:
     # Config indicated by + and applies to all files under models/example/
     +materialized: view # all models will be created as view by defaul
+    +post-hook: # this hook is run for every models inside dbtlearn
+      - "GRANT SELECT ON {{ this }} TO ROLE REPORTER" # {{ this }} will be replaced by the actual model
     dim:
       # materialize all models under dim/ folder as table
       # because they're frequently access
