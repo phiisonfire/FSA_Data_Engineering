@@ -43,3 +43,6 @@ models:
     src:
       +materialized: ephemeral
 
+vars:
+  dbt_user: default_dbt_username
+

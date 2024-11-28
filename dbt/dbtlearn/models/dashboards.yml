@@ -1,0 +1,18 @@
+version: 2
+
+exposures:
+  - name: executive_dashboard
+    label: Executive Dashboard
+    type: dashboard
+    maturity: low
+    url: https://3a744fb1.us2a.app.preset.io/superset/dashboard/8/?native_filters_key=W3MOzEBaK8FaFmcLfIi8hHiu5YAu9feBF_fvSc7rUagm_rmxWNyTq-Tniv9n2zgm
+    description: Executive Dashboard about Airbnb listings and hosts
+      
+
+    depends_on:
+      - ref('dim_listings_with_hosts')
+      - ref('mart_fullmoon_reviews')
+
+    owner:
+      name: Phi Nguyen
+      email: nguyenhongphi2807@gmail.com

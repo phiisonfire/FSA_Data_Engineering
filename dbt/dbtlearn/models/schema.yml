@@ -35,4 +35,29 @@ models:
     
     - name: dim_hosts_cleansed
       description: Cleansed table which contains Airbnb hosts.
-      
+    
+    - name: dim_listings_with_hosts
+      tests:
+        - dbt_expectations.expect_table_row_count_to_equal_other_table:
+            compare_model: source('airbnb', 'listings')
+            # group_by: [col1, col2] # (Optional)
+            # compare_group_by: [col1, col2] # (Optional)
+            # factor: 1 # (Optional)
+            # row_condition: "id is not null" # (Optional)
+            # compare_row_condition: "id is not null" # (Optional)
+      columns:
+        - name: price
+          tests:
+            - dbt_expectations.expect_column_quantile_values_to_be_between:
+                quantile: .95
+                min_value: 50 # (Optional)
+                max_value: 500 # (Optional)
+                # group_by: [group_id, other_group_id, ...] # (Optional)
+                # row_condition: "id is not null" # (Optional)
+                # strictly: false # (Optional. Default is 'false'. Adds an 'or equal to' to the comparison operator for min/max)
+            - dbt_expectations.expect_column_max_to_be_between:
+                max_value: 5000
+                config:
+                  severity: warn
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
