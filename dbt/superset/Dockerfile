@@ -1,7 +1,9 @@
 FROM ubuntu:22.04
 
-# Update the apt package list and install the necessary packages
-RUN apt-get update && apt-get install -y \
+# Update apt repository and install dependencies in a single layer
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+    python3.10 \
     build-essential \
     libssl-dev \
     libffi-dev \
@@ -9,30 +11,32 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     libsasl2-dev \
     libldap2-dev \
-    default-libmysqlclient-dev \
-    curl
+    default-libmysqlclient-dev && \
+    # Clean up apt cache to reduce image size
+    rm -rf /var/lib/apt/lists/*
 
-# Optionally, clean up apt cache to reduce image size
-RUN rm -rf /var/lib/apt/lists/*
+RUN pip3 install --upgrade pip
 
-# Install Apache Superset
-RUN pip install apache-superset Pillow
+RUN mkdir -p /app/superset
+WORKDIR /app/superset
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
 # Copy the .env file from the host into the container
-COPY .env /app/.env
+COPY .env /app/superset/.env
 
-
-# Export environment variables from the .env file
+# Export environment variables
 RUN set -a && \
-    . /app/.env && \
+    . /app/superset/.env && \
     set +a
 
 # Run Superset commands
 RUN superset db upgrade && \
-    superset fab create-admin && \
+    superset fab create-admin --username $ADMIN_USERNAME --firstname Phi --lastname Nguyen --email $ADMIN_EMAIL --password $ADMIN_PASSWORD && \
     superset init
 
-# Expose the default port for Superset (8088)
+# Expose the default port for Superset
 EXPOSE 8088
 
 # Set the default command to start the Superset server

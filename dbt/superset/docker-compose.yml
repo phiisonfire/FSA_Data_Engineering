@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  superset:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8088:8088"
+    env_file:
+      - ./.env
+    depends_on:
+      superset-postgres:
+        condition: service_healthy
+    command: ["superset", "run", "-h", "0.0.0.0", "-p", "8088"]
+    restart: always
+
+  superset-postgres:
+    image: postgres:13
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "superset"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+    restart: always
