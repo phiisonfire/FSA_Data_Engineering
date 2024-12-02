@@ -16,3 +16,7 @@ WORKDIR /opt/airflow/dbtlearn
 USER root
 RUN dbt deps
 USER airflow
+
+
+# dbt run 
+# dbt test

@@ -295,40 +295,30 @@ services:
       # - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Use the custom nginx.conf file
     restart: always
   
-  #superset:
-  #  build:
-  #    dockerfile: Dockerfile
-  #    context: ./superset
-  #  ports:
-  #    - "8088:8088"
-  #  env_file:
-  #    - ./superset/.env
-  #  
-  #  volumes:
-  #    # Persist Superset's SQLite database or other databases (for example, using PostgreSQL).
-  #    - ./superset/superset_db:/app/superset_home
-  #    # Persist logs
-  #    - ./superset/superset_logs:/app/superset_home/superset_logs
-  #    # Persist custom configurations (if you have custom files)
-  #    - ./superset/config:/app/superset_home/config
-  #  command: ["superset", "run", "-h", "0.0.0.0", "-p", "8088"]
-  #
-  #superset-postgres:
-  #  image: postgres:13
-  #  env_file:
-  #    - ./superset/.env
-  #  # environment:
-  #  #   POSTGRES_USER: superset
-  #  #   POSTGRES_PASSWORD: superset
-  #  #   POSTGRES_DB: superset
-  #  volumes:
-  #    - ./superset/superset-db-volume:/var/lib/postgresql/data
-  #  healthcheck:
-  #    test: ["CMD", "pg_isready", "-U", "superset"]
-  #    interval: 10s
-  #    retries: 5
-  #    start_period: 5s
-  #  restart: always
+  superset:
+    build:
+      context: ./superset
+      dockerfile: Dockerfile
+    env_file:
+      ./superset/.env
+    ports:
+      - "8088:8088"
+    depends_on:
+      - superset-postgres
+    volumes:
+      - superset-data:/app/superset_home
+
+  superset-postgres:
+    image: postgres:15
+    container_name: superset-postgres
+    env_file:
+      ./superset/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
 volumes:
   postgres-db-volume:
+  superset-data:
+  postgres-data:

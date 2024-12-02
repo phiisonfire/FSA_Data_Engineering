@@ -1,3 +1,6 @@
+# dbt-snowflake config
+dbt/dbt_profiles.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -122,13 +125,14 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-# .env
-# .venv
-# env/
-# venv/
-# ENV/
-# env.bak/
-# venv.bak/
+dbt/dbtlearn/myenv/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 week_01/exercise_03/.env
 
 # Spyder project settings
