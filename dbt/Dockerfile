@@ -13,9 +13,9 @@ COPY . .
 
 WORKDIR /opt/airflow/dbtlearn
 
-USER root
+# USER root
 RUN dbt deps
-USER airflow
+# USER airflow
 
 
 # dbt run 
