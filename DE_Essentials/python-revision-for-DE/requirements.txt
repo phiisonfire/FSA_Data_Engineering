@@ -1,0 +1,6 @@
+ipykernel
+pandas
+ipython-sql
+prettytable
+psycopg2-binary
+sqlalchemy
