@@ -1,3 +1,14 @@
+spark/data*
+spark/app-logs
+spark/metastore_db
+spark/spark-warehouse
+
+sql/mssql/*.csv
+sql/mssql/*.zip
+sql/mssql/tpc*
+sql/mssql/Adven*
+
+
 # dbt-snowflake config
 dbt/dbt_profiles.yml
 

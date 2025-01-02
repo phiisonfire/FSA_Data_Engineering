@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y" # Accept the SQL Server EULA
+      MSSQL_SA_PASSWORD: "YourStrongPassword123!" # Strong password for the 'sa' user
+    volumes:
+      - sql_data:/var/opt/mssql # Persist data in a Docker volume
+      - ./AdventureWorksDW2022.bak:/var/opt/mssql/backup/AdventureWorksDW2022.bak
+#      - ./books_data.csv:/data/books_data.csv
+#      - ./Books_rating.csv:/data/Books_rating.csv
+      - ./tpc-h:/data
+      - ./2019-Oct.csv:/data/2019-Oct.csv
+
+volumes:
+  sql_data:
+    driver: local
